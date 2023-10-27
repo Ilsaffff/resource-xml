@@ -18,4 +18,4 @@ _aka the second lab for Cpp_
 
 * iterator may be type of `ResourceXML`
 
-![Architecture](architecture.drawio.png)
+![Architecture](assets/architecture.drawio.png)
