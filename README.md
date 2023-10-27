@@ -16,3 +16,5 @@ _aka the second lab for Cpp_
     * This field provide **Exception Guarantee**
 
 * iterator may be type of `ResourceXML`
+
+![Architecture](architecture.drawio.png)
