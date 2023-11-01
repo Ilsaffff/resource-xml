@@ -1,7 +1,7 @@
 #include "ParserXML.h"
 
 
-void ParserXML::parse(std::ifstream &file, std::shared_ptr<NodeXML>& targetNode) {
+void ParserXML::parse(std::ifstream &file, std::shared_ptr<NodeXML> &targetNode) {
     std::string line;
     std::getline(file, line);
 
@@ -16,14 +16,14 @@ void ParserXML::parse(std::ifstream &file, std::shared_ptr<NodeXML>& targetNode)
 
         if (line[0] == '<') {
             if (line[1] == '/') {
-                targetNode = targetNode->next;
+                targetNode = targetNode->getNextNode();
             } else {
                 std::size_t endTagPos = line.find('>');
                 std::string tag = line.substr(1, endTagPos - 1);
                 std::shared_ptr<NodeXML> newNode = std::make_shared<NodeXML>();
-                newNode->tagName = tag;
-                targetNode->children.push_back(newNode);
-                newNode->next = targetNode;
+                newNode->setTagName(tag);
+                targetNode->addChild(newNode);
+                newNode->setNextNode(targetNode);
                 targetNode = newNode;
 
                 while (line[endTagPos] != '>') {
@@ -33,12 +33,12 @@ void ParserXML::parse(std::ifstream &file, std::shared_ptr<NodeXML>& targetNode)
                     attrStart = line.find('"', attrEnd) + 1;
                     attrEnd = line.find('"', attrStart);
                     std::string attributeValue = line.substr(attrStart, attrEnd - attrStart);
-                    newNode->attributes[attributeName] = attributeValue;
+                    newNode->addAttribute(attributeName, attributeValue);
                     endTagPos = line.find(' ', attrEnd);
                 }
             }
         } else {
-            targetNode->body = line;
+            targetNode->setBody(line);
         }
     }
 }
