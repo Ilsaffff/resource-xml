@@ -11,4 +11,6 @@ add_executable(resource_xml main.cpp
         src/parser/ParserXML.cpp
         src/parser/ParserXML.h
         src/forest/node/NodeXML.cpp
-        src/forest/node/NodeXML.h)
+        src/forest/node/NodeXML.h
+        src/resource/ResourceXML.cpp
+        src/resource/ResourceXML.h)
