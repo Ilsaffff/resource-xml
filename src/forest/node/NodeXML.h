@@ -6,9 +6,17 @@
 #include <list>
 
 struct NodeXML {
+public:
     NodeXML() = default;
+    void setTagName(std::string& newName);
+    void setBody(std::string& newBody);
+    void addAttribute(std::string& key, std::string& value);
+    void addChild(std::shared_ptr<NodeXML>& child);
+    void setNextNode(std::shared_ptr<NodeXML>& nextNode);
+    std::shared_ptr<NodeXML>& getNextNode();
 
-    std::string tagName;
+private:
+    std::string name;
     std::map<std::string, std::string> attributes;
     std::string body;
     std::shared_ptr<NodeXML> next;
