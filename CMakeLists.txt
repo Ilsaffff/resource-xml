@@ -4,13 +4,14 @@ project(resource_xml)
 set(CMAKE_CXX_STANDARD 23)
 
 add_executable(resource_xml main.cpp
-        src/forest/ForestInterface.h
+        src/forest/Forest.h
         src/forest/ForestXML.h
         src/forest/ForestXML.cpp
-        src/parser/ParserInterface.h
-        src/parser/ParserXML.cpp
-        src/parser/ParserXML.h
+        src/processor_file/ProcessorFIle.h
+        src/processor_file/ProcessorXML.cpp
+        src/processor_file/ProcessorXML.h
         src/forest/node/NodeXML.cpp
         src/forest/node/NodeXML.h
         src/resource/ResourceXML.cpp
-        src/resource/ResourceXML.h)
+        src/resource/ResourceXML.h
+)

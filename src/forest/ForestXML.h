@@ -1,21 +1,22 @@
 #pragma once
 
-#include "ForestInterface.h"
-#include "../parser/ParserXML.h"
+#include "Forest.h"
+#include "../processor_file/ProcessorXML.h"
 
 
-
-class ForestXML final : public ForestInterface, std::enable_shared_from_this<ForestXML> {
+class ForestXML final : public Forest, std::enable_shared_from_this<ForestXML> {
 public:
     template<typename Functor>
     void for_each(Functor &functor);
 
     void save() override;
 
-    void load(std::string &filePath) override;
+    void load(std::string &file_path) override;
+
+    std::shared_ptr<NodeXML> operator[](size_t);
 
 
 private:
-    ParserXML parser;
-    std::shared_ptr<NodeXML> node;
+    ProcessorXML processor;
+    std::shared_ptr<NodeXML> root;
 };

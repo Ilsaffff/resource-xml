@@ -1,8 +1,10 @@
 #pragma once
 
 #include "string"
+#include "memory"
 
-class ForestInterface {
+
+class Forest {
 protected:
     virtual void save() = 0;
 
@@ -11,5 +13,5 @@ protected:
     virtual void print() = 0;
 
     template<typename Functor>
-    void for_each(Functor &functor){};
+    static void for_each(Functor &functor){};
 };
