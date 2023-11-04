@@ -1,6 +1,7 @@
 #include <iostream>
+#include "src/resource/ResourceXML.h"
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
+    auto resource_xml = ResourceXML::create();
     return 0;
 }

@@ -46,7 +46,8 @@ public:
 
     Iterator find(const std::string &name_tag);
 
-    Iterator add(std::string &name_tag, std::map<std::string, std::string>& attributes, Iterator& iterator);
+    Iterator
+    add(std::string &name_tag, std::map<std::string, std::string> &attributes, Iterator &iterator);
 
     bool erase(const std::string &name_tag);
 
