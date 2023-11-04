@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Forest.h"
+#include "File.h"
 #include "../processor_file/ProcessorXML.h"
 
 
-class ForestXML final : public Forest, std::enable_shared_from_this<ForestXML> {
+class FileXML final : public File, std::enable_shared_from_this<FileXML> {
 public:
     template<typename Functor>
     void for_each(Functor &functor);
@@ -15,6 +15,9 @@ public:
 
     std::shared_ptr<NodeXML> operator[](size_t);
 
+    std::shared_ptr<NodeXML>& get_root();
+
+    std::shared_ptr<NodeXML>& get_last();
 
 private:
     ProcessorXML processor;

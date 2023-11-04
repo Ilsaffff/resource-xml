@@ -1,6 +1,6 @@
 #pragma once
 #include "ProcessorFIle.h"
-#include "../forest/node/NodeXML.h"
+#include "../file/node/NodeXML.h"
 
 
 class ProcessorXML: ProcessorFIle<NodeXML> {

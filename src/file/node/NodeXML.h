@@ -42,7 +42,7 @@ public:
 
     size_t get_id() const;
 
-    void set_id(int &new_id);
+    void set_id(size_t &new_id);
 
     bool empty();
 

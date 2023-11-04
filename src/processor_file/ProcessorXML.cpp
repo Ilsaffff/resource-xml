@@ -5,10 +5,10 @@
 
 void ProcessorXML::read(std::ifstream &file, std::shared_ptr<NodeXML> &root) {
     std::string line;
-    int i = 0;
-    std::stack<std::shared_ptr<NodeXML>> nodeStack;
-    nodeStack.push(root);
-    std::shared_ptr<NodeXML> currentNode = root;
+    size_t id = 0;
+    std::stack<std::shared_ptr<NodeXML>> node_stack;
+    node_stack.push(root);
+    std::shared_ptr<NodeXML> current_node = root;
 
     while (std::getline(file, line)) {
         line = line.substr(line.find_first_not_of(" \t"), line.find_last_not_of(" \t") + 1);
@@ -19,25 +19,25 @@ void ProcessorXML::read(std::ifstream &file, std::shared_ptr<NodeXML> &root) {
 
         if (line[0] == '<') {
             if (line[1] == '/') {
-                if (currentNode && line.size() > 2) {
+                if (current_node && line.size() > 2) {
                     std::string tag_name = line.substr(2, line.find_first_of('>') - 2);
-                    if (currentNode->get_tag_name() == tag_name) {
-                        currentNode = nodeStack.top();
-                        nodeStack.pop();
+                    if (current_node->get_tag_name() == tag_name) {
+                        current_node = node_stack.top();
+                        node_stack.pop();
                     }
                 }
             } else {
                 std::string tag_name = line.substr(1, line.find_first_of(" \t>") - 1);
-                std::shared_ptr<NodeXML> newNode = std::make_shared<NodeXML>();
-                newNode->set_id(++i);
-                newNode->set_tag_name(tag_name);
-                if (currentNode) {
-                    currentNode->set_first_child(newNode);
-                    newNode->set_parent(currentNode);
+                std::shared_ptr<NodeXML> new_node = std::make_shared<NodeXML>();
+                new_node->set_id(++id);
+                new_node->set_tag_name(tag_name);
+                if (current_node) {
+                    current_node->set_first_child(new_node);
+                    new_node->set_parent(current_node);
                 }
-                currentNode = newNode;
+                current_node = new_node;
 
-                nodeStack.push(newNode);
+                node_stack.push(new_node);
 
                 size_t pos = line.find(tag_name) + tag_name.size();
                 while (pos != std::string::npos) {
@@ -47,12 +47,12 @@ void ProcessorXML::read(std::ifstream &file, std::shared_ptr<NodeXML> &root) {
                         if (pos != std::string::npos && line[pos] != '>') {
                             size_t endPos = line.find("\"", pos + 1);
                             if (endPos != std::string::npos) {
-                                std::string attrName = line.substr(pos, endPos - pos);
+                                std::string attr_name = line.substr(pos, endPos - pos);
                                 pos = endPos + 1;
                                 endPos = line.find("\"", pos);
                                 if (endPos != std::string::npos) {
                                     std::string attrValue = line.substr(pos, endPos - pos);
-                                    newNode->add_attr(attrName, attrValue);
+                                    new_node->add_attr(attr_name, attrValue);
                                 }
                             }
                         }
@@ -60,8 +60,8 @@ void ProcessorXML::read(std::ifstream &file, std::shared_ptr<NodeXML> &root) {
                 }
             }
         } else {
-            if (currentNode) {
-                currentNode->set_body(line);
+            if (current_node) {
+                current_node->set_body(line);
             }
         }
     }

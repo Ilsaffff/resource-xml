@@ -4,7 +4,7 @@
 #include "memory"
 
 
-class Forest {
+class File {
 protected:
     virtual void save() = 0;
 

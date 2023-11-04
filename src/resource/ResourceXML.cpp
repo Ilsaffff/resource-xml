@@ -14,11 +14,19 @@ std::shared_ptr<ResourceXML> &ResourceXML::create() {
 ResourceXML::Iterator::Iterator(ResourceXML::Iterator::pointer ptr): m_ptr(std::move(ptr)) {}
 
 bool operator==(const ResourceXML::Iterator &a, const ResourceXML::Iterator &b) {
-    return a.m_ptr->get_depth() == a.m_ptr->get_depth();
+    return a.m_ptr->get_id() == a.m_ptr->get_id();
 }
 
 bool operator!=(const ResourceXML::Iterator &a, const ResourceXML::Iterator &b) {
     return a.m_ptr->get_id() != a.m_ptr->get_id();
+}
+
+ResourceXML::Iterator ResourceXML::begin() const {
+    return Iterator(forest_xml->get_root());
+}
+
+ResourceXML::Iterator ResourceXML::end() const {
+    return Iterator(forest_xml->get_last());
 }
 
 

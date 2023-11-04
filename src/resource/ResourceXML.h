@@ -1,8 +1,8 @@
 #pragma once
 
 #include "iterator"
-#include "../forest/node/NodeXML.h"
-#include "../forest/ForestXML.h"
+#include "../file/node/NodeXML.h"
+#include "../file/FileXML.h"
 #include <memory>
 #include <utility>
 
@@ -33,14 +33,13 @@ public:
         Iterator operator++(int);
 
         friend bool operator==(const Iterator &a, const Iterator &b);
-
         friend bool operator!=(const Iterator &a, const Iterator &b);
-
-
     private:
         pointer m_ptr;
     };
+    Iterator begin() const;
+    Iterator end() const;
 
-    std::unique_ptr<ForestXML> forest_xml;
+    std::unique_ptr<FileXML> forest_xml;
     static std::shared_ptr<ResourceXML> &create();
 };

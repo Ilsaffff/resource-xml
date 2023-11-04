@@ -84,7 +84,7 @@ size_t NodeXML::get_id() const {
     return id;
 }
 
-void NodeXML::set_id(int &new_id) {
+void NodeXML::set_id(size_t &new_id) {
     id = new_id;
 }
 
