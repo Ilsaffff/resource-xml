@@ -10,6 +10,8 @@ struct NodeXML {
 public:
     NodeXML();
 
+    NodeXML(std::string& name, std::map<std::string, std::string>& attrs);
+
     void set_tag_name(std::string &name);
 
     std::string get_tag_name();

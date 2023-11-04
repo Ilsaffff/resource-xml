@@ -13,7 +13,7 @@ private:
 
     ResourceXML() = default;
 
-
+    std::unique_ptr<FileXML> file;
 public:
     struct Iterator {
         using iterator_category = std::forward_iterator_tag;
@@ -33,13 +33,23 @@ public:
         Iterator operator++(int);
 
         friend bool operator==(const Iterator &a, const Iterator &b);
+
         friend bool operator!=(const Iterator &a, const Iterator &b);
+
     private:
         pointer m_ptr;
     };
+
     Iterator begin() const;
+
     Iterator end() const;
 
-    std::unique_ptr<FileXML> forest_xml;
+    Iterator find(const std::string &name_tag);
+
+    Iterator add(std::string &name_tag, std::map<std::string, std::string>& attributes, Iterator& iterator);
+
+    bool erase(const std::string &name_tag);
+
+
     static std::shared_ptr<ResourceXML> &create();
 };

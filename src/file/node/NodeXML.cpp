@@ -4,6 +4,9 @@
 
 NodeXML::NodeXML() : depth(), id(0) {}
 
+NodeXML::NodeXML(std::string &name, std::map<std::string, std::string>& attrs) : name_tag(name),
+                                                                                attributes(attrs),
+                                                                                depth(), id() {}
 
 void NodeXML::set_tag_name(std::string &name) {
     name_tag = name;
@@ -89,11 +92,12 @@ void NodeXML::set_id(size_t &new_id) {
 }
 
 std::shared_ptr<NodeXML> NodeXML::operator++() {
-    if (!this->get_first_child()->empty()){
+    if (!this->get_first_child()->empty()) {
         return this->get_first_child();
-    }
-    else if (!this->get_next_sibling()->empty()){
+    } else if (!this->get_next_sibling()->empty()) {
         return this->get_next_sibling();
     }
     return std::shared_ptr<NodeXML>();
 }
+
+
