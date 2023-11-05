@@ -3,24 +3,33 @@
 
 
 void FileXML::load(std::string &file_path) {
-    std::ifstream inFile(file_path);
-    if (!inFile.is_open()) {
-        std::cerr << "Failed to open XML file: " << file_path << std::endl;
-        return;
+    try {
+        std::ifstream inFile(file_path);
+        if (!inFile.is_open()) {
+            std::cerr << "Failed to open XML file: " << file_path << std::endl;
+            return;
+        }
+        std::shared_ptr<NodeXML> tmp_node; // For Exception Guarantee
+        processor.read(inFile, tmp_node);
+        root = tmp_node;
     }
-    std::shared_ptr<NodeXML> tmp_node; // For Exception Guarantee
-    processor.read(inFile, tmp_node);
-    root = tmp_node;
+    catch (const std::exception &e) {
+        std::cerr << "Error: " << e.what() << "\n";
+    }
 }
 
 void FileXML::save() {
-    std::string fileName;
-    std::ofstream outFile;
-    std::cout << "Enter the name_tag of a new xml file" << "\n";
-    std::cin >> fileName;
-    fileName += ".xml";
-
-
+    try {
+        std::string file_name;
+        std::cout << "Введи название нового файла" << "\n";
+        std::cin >> file_name;
+        file_name += ".xml";
+        std::ofstream out_file(file_name);
+        processor.write(out_file, root);
+    }
+    catch (const std::exception &e) {
+        std::cerr << "Error: " << e.what() << "\n";
+    }
 }
 
 std::shared_ptr<NodeXML> FileXML::operator[](size_t) {

@@ -32,9 +32,12 @@ public:
 
         Iterator operator++(int);
 
+        operator bool();
+
         friend bool operator==(const Iterator &a, const Iterator &b);
 
         friend bool operator!=(const Iterator &a, const Iterator &b);
+
 
     private:
         pointer m_ptr;
